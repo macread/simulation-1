@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 export default function Product(props) {
   return (
@@ -7,7 +8,9 @@ export default function Product(props) {
         <span className="">Name: {props.name} </span>
         <span className="">Price: {props.price} </span>
         <button type='' className='' onClick={()=> props.deleteProduct(props.id)}>Delete</button>
-        <button type='' className='' onClick={()=> props.setSelectedProductID(props.id)}>Edit</button>
+        <Link to='add/'>
+          <button type='' className='' onClick={()=> props.setSelectedProductID(props.id)}>Edit</button>
+        </Link>
     </div> 
   )
 }

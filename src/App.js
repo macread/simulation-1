@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Header from './component/header/Header'
 import Dashboard from './component/dashboard/Dashboard'
-import Form from './component/form/Form'
+import Routes from './routes';
+// import Form from './component/form/Form'
 
 class App extends Component {
 
@@ -41,11 +42,13 @@ class App extends Component {
           getInventory={this.getInventory}
           setSelectedProductID={this.setSelectedProductID}
         />
-        <Form 
+
+        { Routes }
+        {/* <Form 
           getInventory={this.getInventory}
           selectedProduct={this.state.selectedProduct}
 
-        />
+        /> */}
       </div> 
     );
   }

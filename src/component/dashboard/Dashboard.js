@@ -17,7 +17,6 @@ export default class Dashboard extends Component {
     render() {
         return (
             <div>
-                Dashboard
                 {
                     this.props.products.map( product => (
                         <Product 
