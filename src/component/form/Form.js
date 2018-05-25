@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class Form extends Component {
     constructor() {
@@ -24,7 +25,11 @@ export default class Form extends Component {
     }
 
     addProduct(){
-
+        axios.post('api/product',
+        {name: this.state.productName,
+        price: this.state.price,
+        image_url: this.state.imageURL})
+        .then ( results=> this.props.getInventory());
     }
 
     userCancel(){
