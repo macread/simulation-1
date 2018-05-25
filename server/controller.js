@@ -7,12 +7,20 @@ module.exports = {
     },
 
     product: (req, res, next)=> {
-        console.log('made it')
         const connection = req.app.get('db');
         const { name, price, image_url } = req.body;
         connection.create_product([name, price, image_url])
             .then( ()=> res.status(200).send() )
             .catch( (err)=> res.status(500).send() );
+    },
+
+
+    delete: (req, res, next)=> {
+        const connection = req.app.get('db');
+        console.log(req.params)
+        connection.delete_product([req.params.id])
+            .then( ()=> res.status(200).send() )
+            .catch( ()=> res.status(500).send() );
     },
 
     getOne: (req, res, next)=> {
@@ -39,13 +47,6 @@ module.exports = {
         //     .catch( ()=> res.status(500).send() );
     },
 
-    delete: (req, res, next)=> {
-        const connection = req.app.get('db');
-
-        // connection.delete_product([req.params.id])
-        //     .then( ()=> res.status(200).send() )
-        //     .catch( ()=> res.status(500).send() );
-    },
 
 
 }
