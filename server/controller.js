@@ -31,6 +31,13 @@ module.exports = {
             .catch( ()=> res.status(500).send() );
     },
 
+    updateProduct: (req, res, next)=> {
+        const connection = req.app.get('db');
+        connection.update_product([req.body.name, req.body.price, req.body.image_url, req.params.id])
+            .then( ()=> res.status(200).send() )
+            .catch( ()=> res.status(500).send() );
+    },
+
     getAll: (req, res, next)=> {
         const connection = req.app.get('db');
 
@@ -39,13 +46,7 @@ module.exports = {
         //     .catch( ()=> res.status(500).send() );
     },
 
-    update: (req, res, next)=> {
-        const connection = req.app.get('db');
-
-        // connection.update_product([req.params.id, req.query.desc])
-        //     .then( ()=> res.status(200).send() )
-        //     .catch( ()=> res.status(500).send() );
-    },
+  
 
 
 

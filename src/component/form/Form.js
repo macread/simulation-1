@@ -15,9 +15,14 @@ export default class Form extends Component {
 
     componentDidUpdate(oldProps) {
         if (oldProps !== this.props) {
-            this.setState({
-                selectedProduct: this.props.selectedProduct  
-            })
+            if (this.props.selectedProduct) {
+                this.setState({
+                    selectedProduct: this.props.selectedProduct,
+                    productName: this.props.selectedProduct[0].name,
+                    price: this.props.selectedProduct[0].price,
+                    imageURL: this.props.selectedProduct[0].image_url
+                })
+            }
         }
     }
 
@@ -41,6 +46,15 @@ export default class Form extends Component {
         .then ( results=> this.props.getInventory());
     }
 
+    updateProduct(val){
+        axios.put(`api/product/${val}`,
+        {name: this.state.productName,
+        price: this.state.price,
+        image_url: this.state.imageURL})
+        .then ( results=> this.props.getInventory());
+        
+        this.userCancel();
+    }
 
     editProduct(){
 
@@ -63,13 +77,13 @@ export default class Form extends Component {
                      this.state.selectedProduct
                      ? (
                         <div>
-                            Product Name: <input type='' className='' value={this.state.selectedProduct[0].name} 
+                            Product Name: <input type='' className='' value={this.state.productName} 
                                 onChange={ ( e ) => this.updateProductName( e.target.value ) }/>
-                            Price: <input type='' className='' value={this.state.selectedProduct[0].price} 
+                            Price: <input type='' className='' value={this.state.price} 
                                 onChange={ ( e ) => this.updatePrice( e.target.value ) }/>
-                            Image URL: <input type='' className='' value={this.state.selectedProduct[0].image_url} 
+                            Image URL: <input type='' className='' value={this.state.image_url} 
                                 onChange={ ( e ) => this.updateImageURL( e.target.value ) }/>
-                            <button type='' className='' onClick={()=> this.editProduct()}>Save Changes</button>
+                            <button type='' className='' onClick={()=> this.updateProduct(this.state.selectedProduct[0].product_id)}>Save Changes</button>
                             <button type='' className='' onClick={()=> this.userCancel()}>Cancel</button>
                         </div>
                      ) : (
@@ -78,6 +92,7 @@ export default class Form extends Component {
                             Price: <input type='' className=''onChange={ ( e ) => this.updatePrice( e.target.value ) }/>
                             Image URL: <input type='' className=''onChange={ ( e ) => this.updateImageURL( e.target.value ) }/>
                             <button type='' className='' onClick={()=> this.addProduct()}>Add to Inventory</button>
+                            <button type='' className='' onClick={()=> this.userCancel()}>Cancel</button>
                         </div>
                         
                      )

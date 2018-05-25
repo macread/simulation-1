@@ -15,8 +15,13 @@ massive(process.env.CONNECTION_STRING).then(connection => {
   })
 
   app.get('/api/inventory',controller.inventory);
+
   app.get('/api/product/:id',controller.getProduct);
+
   app.post('/api/product',controller.product);
+
+  app.put('/api/product/:id',controller.updateProduct);
+
   app.delete(`/api/product/:id`,controller.delete);
 
 
