@@ -6,13 +6,13 @@ module.exports = {
             .catch( ()=> res.status(500).send() );
     },
 
-    create: (req, res, next)=> {
+    product: (req, res, next)=> {
+        console.log('made it')
         const connection = req.app.get('db');
-        // const { name, description, price, imageurl } = req.body;
-        
-        // connection.create_product([name, description, price, imageurl])
-        //     .then( ()=> res.status(200).send() )
-        //     .catch( (err)=> res.status(500).send() );
+        const { name, price, image_url } = req.body;
+        connection.create_product([name, price, image_url])
+            .then( ()=> res.status(200).send() )
+            .catch( (err)=> res.status(500).send() );
     },
 
     getOne: (req, res, next)=> {

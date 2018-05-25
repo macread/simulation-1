@@ -15,6 +15,7 @@ massive(process.env.CONNECTION_STRING).then(connection => {
   })
 
   app.get('/api/inventory',controller.inventory);
+  app.post('/api/product',controller.product);
 
 
 app.listen( port, () => { console.log(`Server listening on port ${port}`); })
