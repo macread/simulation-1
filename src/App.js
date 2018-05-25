@@ -11,9 +11,11 @@ class App extends Component {
   constructor() {
     super()
         this.state = {
-            products: []
+            products: [],
+            selectedProduct: null
         }
         this.getInventory = this.getInventory.bind(this);
+        this.setSelectedProductID = this.setSelectedProductID.bind(this);
     }
 
     componentDidMount() {
@@ -26,6 +28,12 @@ class App extends Component {
         });
     }
 
+    setSelectedProductID(val){
+      axios.get(`api/product/${val}`).then( results => {
+        this.setState({ selectedProduct: results.data });
+      });
+    }
+
   render() {
     return (
       <div>
@@ -33,9 +41,12 @@ class App extends Component {
         <Dashboard 
           products={this.state.products}
           getInventory={this.getInventory}
+          setSelectedProductID={this.setSelectedProductID}
         />
         <Form 
           getInventory={this.getInventory}
+          selectedProduct={this.state.selectedProduct}
+
         />
       </div> 
     );

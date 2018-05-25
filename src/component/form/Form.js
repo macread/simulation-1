@@ -8,8 +8,17 @@ export default class Form extends Component {
         this.state = {
                 productName: "",
                 price: "",
-                imageURL: ""
+                imageURL: "",
+                selectedProduct: null
             }
+    }
+
+    componentDidUpdate(oldProps) {
+        if (oldProps !== this.props) {
+            this.setState({
+                selectedProduct: this.props.selectedProduct  
+            })
+        }
     }
 
     updateProductName(val){
@@ -32,22 +41,48 @@ export default class Form extends Component {
         .then ( results=> this.props.getInventory());
     }
 
+
+    editProduct(){
+
+    }
+
     userCancel(){
         this.setState({
             productName: "",
             price: "",
-            imageURL: ""
+            imageURL: "",
+            selectedProductID: null
         })
     }
 
     render() {
         return (
             <div>
-                Product Name: <input type='' className='' onChange={ ( e ) => this.updateProductName( e.target.value ) }/>
-                Price: <input type='' className=''onChange={ ( e ) => this.updatePrice( e.target.value ) }/>
-                Image URL: <input type='' className=''onChange={ ( e ) => this.updateImageURL( e.target.value ) }/>
-                <button type='' className='' onClick={()=> this.addProduct()}>Add</button>
-                <button type='' className='' onClick={()=> this.userCancel()}>Cancel</button>
+
+                {
+                     this.state.selectedProduct
+                     ? (
+                        <div>
+                            Product Name: <input type='' className='' value={this.state.selectedProduct[0].name} 
+                                onChange={ ( e ) => this.updateProductName( e.target.value ) }/>
+                            Price: <input type='' className='' value={this.state.selectedProduct[0].price} 
+                                onChange={ ( e ) => this.updatePrice( e.target.value ) }/>
+                            Image URL: <input type='' className='' value={this.state.selectedProduct[0].image_url} 
+                                onChange={ ( e ) => this.updateImageURL( e.target.value ) }/>
+                            <button type='' className='' onClick={()=> this.editProduct()}>Save Changes</button>
+                            <button type='' className='' onClick={()=> this.userCancel()}>Cancel</button>
+                        </div>
+                     ) : (
+                        <div>
+                            Product Name: <input type='' className='' onChange={ ( e ) => this.updateProductName( e.target.value ) }/>
+                            Price: <input type='' className=''onChange={ ( e ) => this.updatePrice( e.target.value ) }/>
+                            Image URL: <input type='' className=''onChange={ ( e ) => this.updateImageURL( e.target.value ) }/>
+                            <button type='' className='' onClick={()=> this.addProduct()}>Add to Inventory</button>
+                        </div>
+                        
+                     )
+
+                }
             </div> 
         )
     }

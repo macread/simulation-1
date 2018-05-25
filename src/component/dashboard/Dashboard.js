@@ -27,6 +27,7 @@ export default class Dashboard extends Component {
                             imageURL={product.image_url} 
                             price={product.price}
                             deleteProduct={this.deleteProduct}
+                            setSelectedProductID={this.props.setSelectedProductID}
                         />
                     ))
                 }

@@ -23,12 +23,12 @@ module.exports = {
             .catch( ()=> res.status(500).send() );
     },
 
-    getOne: (req, res, next)=> {
+    getProduct: (req, res, next)=> {
         const connection = req.app.get('db');
 
-        // connection.read_product([req.params.id])
-        //     .then( (product)=> res.status(200).send(product) )
-        //     .catch( ()=> res.status(500).send() );
+        connection.get_product([req.params.id])
+            .then( (product)=> res.status(200).send(product) )
+            .catch( ()=> res.status(500).send() );
     },
 
     getAll: (req, res, next)=> {
